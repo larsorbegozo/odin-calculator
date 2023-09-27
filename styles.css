@@ -1,0 +1,111 @@
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0;
+    background-color: black;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    align-items: center;
+}
+
+button {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    padding: 0;
+    border-radius: 50px;
+    background-color: rgb(200, 200, 200);
+}
+    
+
+.main {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    margin-bottom: 100px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 32px 8px 8px 8px;
+}
+
+.button-operator-container {
+    display: flex;
+}
+
+.screen-container {
+    width: 264px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 16px;
+    border: 1px beige solid;
+    border-radius: 12px;
+}
+
+#operation, #result {
+    padding: 4px 8px;
+}
+
+#operation {
+    color: gray;
+}
+
+#result {
+    font-size: 36px;
+}
+
+.edit-container {
+    width: 264px;
+    display: flex;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+#delete, #clear {
+    width: 50%;
+}
+
+.number-container {
+    width: 196px;
+    height: 264px;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.operator-container {
+    width: 60px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+#title {
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 48px;
+}
+
+#lars {
+    text-align: center;
+}
