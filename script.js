@@ -4,6 +4,7 @@ let operator = ""
 let second = ""
 let isFirstAlreadyPressed = false
 let isOperationReady = false
+let operationStatus = 0
 const numberButton = document.querySelectorAll('.number-container button')
 const operatorButton = document.querySelectorAll('.operator-container button')
 const deleteButton = document.querySelector('#delete')
@@ -18,10 +19,11 @@ numberButton.forEach((number) => {
             first = operation.textContent
             console.log(`first: ${first}`)
         } else if(parseInt(number.textContent) == number.textContent && isFirstAlreadyPressed) {
+            operationStatus = 2
             operation.textContent += number.textContent
             second += number.textContent
             console.log(`second: ${second}`)
-        } else if(number.textContent == "=" && first !== "" && second !== "") {
+        } else if(number.textContent == "=" && first !== "" && second !== "" && operator !== "") {
             if(operator == "+") {
                 result.textContent = add(+first, +second)
             } else if (operator == "-") {
@@ -33,6 +35,7 @@ numberButton.forEach((number) => {
             }
             first = result.textContent
             second = ""
+            operationStatus = 1
         }
          else {
             console.log("error1")
@@ -42,6 +45,7 @@ numberButton.forEach((number) => {
 
 operatorButton.forEach((operatorPressed) => {
     operatorPressed.addEventListener('click', () => {
+        operationStatus = 1
         if(!isOperationReady) {
             operation.textContent += ` ${operatorPressed.textContent} `
             operator = operatorPressed.textContent
@@ -51,7 +55,7 @@ operatorButton.forEach((operatorPressed) => {
         } else if(isOperationReady) {
             operator = operatorPressed.textContent
             console.log(`operator: ${operator}`)
-            if(first !== "" && second !== "") {
+            if(first !== "" && second !== "" && operator !== "") {
                 if(operator == "+") {
                     result.textContent = add(+first, +second)
                 } else if (operator == "-") {
@@ -79,7 +83,20 @@ clearButton.addEventListener('click', () => {
 })
 
 deleteButton.addEventListener('click', () => {
-    // TODO
+    if(operationStatus == 0) {
+        first = first.slice(0, first.length - 1)
+        operation.textContent = first
+    } else if(operationStatus == 1) {
+        operator = ""
+        operation.textContent = `${first} ${operator}`
+        operationStatus = 0
+    } else if(operationStatus == 2) {
+        second = second.slice(0, second.length - 1)
+        operation.textContent = `${first} ${operator} ${second}`
+        if(second === "") {
+            operationStatus = 1
+        }
+    }
 })
 
 function add(a, b) {
@@ -106,6 +123,7 @@ function clearCalculator() {
     isOperationReady = false
     result.textContent = "0"
     operation.textContent = ""
+    operationStatus = 0
 }
 
 // TODO:
