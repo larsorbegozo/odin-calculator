@@ -4,7 +4,8 @@ let operator = ""
 let second = ""
 let isFirstAlreadyPressed = false
 let isOperationReady = false
-let operationStatus = 0
+let operationStatus = 0 // 0 - inputting(first) | 1 - inputting(operator) | 2 - inputting(second)
+let isFloat = false
 const numberButton = document.querySelectorAll('.number-container button')
 const operatorButton = document.querySelectorAll('.operator-container button')
 const deleteButton = document.querySelector('#delete')
@@ -36,8 +37,15 @@ numberButton.forEach((number) => {
             first = result.textContent
             second = ""
             operationStatus = 1
+        } else if(number.textContent == "." && operation != 1 && !isFloat && !isFirstAlreadyPressed) {
+            operation.textContent += "."
+            isFloat = true
+        } else if(number.textContent == "." && operation != 1 && !isFloat && isFirstAlreadyPressed) {
+            operation.textContent += "."
+            second += "."
+            isFloat = true
         }
-         else {
+        else {
             console.log("error1")
         }
     })
@@ -46,6 +54,7 @@ numberButton.forEach((number) => {
 operatorButton.forEach((operatorPressed) => {
     operatorPressed.addEventListener('click', () => {
         operationStatus = 1
+        isFloat = false
         if(!isOperationReady) {
             operation.textContent += ` ${operatorPressed.textContent} `
             operator = operatorPressed.textContent
@@ -65,7 +74,7 @@ operatorButton.forEach((operatorPressed) => {
                 } else if (operator == "÷") {
                     result.textContent = divide(+first, +second)
                 }
-            }
+            } else {}
             first = result.textContent
             second = ""
             console.log(`first 2: ${first}`)
@@ -100,18 +109,30 @@ deleteButton.addEventListener('click', () => {
 })
 
 function add(a, b) {
+    if(typeof(a + b) === "number" && !Number.isNaN(a + b) && !Number.isInteger(a + b)) {
+        return (a + b).toFixed(2)
+    }
     return a + b
 }
 
 function subtract(a, b) {
+    if(typeof(a - b) === "number" && !Number.isNaN(a - b) && !Number.isInteger(a - b)) {
+        return (a - b).toFixed(2)
+    }
     return a - b
 }
 
 function multiply(a, b) {
+    if(typeof(a * b) === "number" && !Number.isNaN(a * b) && !Number.isInteger(a * b)) {
+        return (a * b).toFixed(2)
+    }
     return a * b
 }
 
 function divide(a, b) {
+    if(typeof(a / b) === "number" && !Number.isNaN(a / b) && !Number.isInteger(a / b)) {
+        return (a / b).toFixed(2)
+    }
     return a / b
 }
 
@@ -124,21 +145,22 @@ function clearCalculator() {
     result.textContent = "0"
     operation.textContent = ""
     operationStatus = 0
+    isFloat = false
 }
 
 // TODO:
 // [x] create input for each button
 
-// [] let first, second, operator (when the operation is complete, first = result)
+// [x] let first, second, operator (when the operation is complete, first = result)
 // so I can continue with the operations
 
-// [] i.e. if + button is pressed, store it in a variable
+// [x] i.e. if + button is pressed, store it in a variable
 // then, when another number is pressed, call the appropiate function
 // and print the result (and store it in the "first" variable)
 
-// [] function to clear everything
+// [x] function to clear everything
 
-// [] function to show result (equals button)
+// [x] function to show result (equals button)
 
-// how to delete?
-// how to integrate the dot?
+// [x] how to delete?
+// [] how to integrate the dot?
